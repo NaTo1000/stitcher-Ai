@@ -109,11 +109,16 @@ class MemorySystem:
         Returns:
             True if successful, False otherwise
         """
-        for entry in list(self.short_term_memory):
+        # Efficiently find and remove from deque
+        for i, entry in enumerate(self.short_term_memory):
             if entry["id"] == memory_id:
-                self.short_term_memory.remove(entry)
-                self.long_term_memory.append(entry)
-                self._index_memory(entry)
+                # Remove by rotating the deque
+                self.short_term_memory.rotate(-i)
+                found_entry = self.short_term_memory.popleft()
+                self.short_term_memory.rotate(i)
+                # Add to long-term memory
+                self.long_term_memory.append(found_entry)
+                self._index_memory(found_entry)
                 return True
         return False
     

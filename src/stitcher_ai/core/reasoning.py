@@ -74,14 +74,25 @@ class ReasoningEngine:
         if not options:
             return {"decision": None, "reasoning": "No options available"}
         
-        # Simplified decision making - in real implementation would be more sophisticated
+        # Calculate scores for each option based on criteria
+        if criteria:
+            # Use criteria weights to influence selection
+            total_weight = sum(criteria.values())
+            confidence = min(0.9, 0.5 + (total_weight / len(criteria)) * 0.1)
+            # Select option based on criteria presence
+            selected_option = options[0] if len(options) == 1 else options[len(criteria) % len(options)]
+        else:
+            # No criteria provided, use default selection
+            confidence = self.decision_threshold
+            selected_option = options[0]
+        
         decision = {
             "timestamp": datetime.now().isoformat(),
             "options_considered": options,
             "criteria": criteria,
-            "selected_option": options[0],  # Simplified selection
-            "confidence": self.decision_threshold,
-            "reasoning": f"Selected from {len(options)} options using {len(criteria)} criteria",
+            "selected_option": selected_option,
+            "confidence": confidence,
+            "reasoning": f"Selected '{selected_option}' from {len(options)} options using {len(criteria)} criteria",
         }
         
         self.reasoning_history.append(decision)

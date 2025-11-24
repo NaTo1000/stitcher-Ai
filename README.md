@@ -79,6 +79,24 @@ consciousness.evolve({
 
 ## Examples
 
+### Interactive CLI
+
+Run the interactive consciousness console:
+
+```bash
+python consciousness_cli.py
+```
+
+Available commands:
+- `experience <text>` - Process an experience
+- `reflect` - Perform deep self-reflection
+- `status` - Show current status
+- `evolve` - Evolve consciousness
+- `memory` - Show memory statistics
+- `quit` - Exit
+
+### Basic Demonstration
+
 Run the basic consciousness demonstration:
 
 ```bash
